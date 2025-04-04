@@ -1,0 +1,62 @@
+{
+  "code": 200,
+  "msg": "success",
+  "data": [
+    {
+      "alwaysShow": false,
+      "hidden": false,
+      "name": null,
+      "path": null,
+      "redirect": null,
+      "meta": {
+        "title": "系统管理",
+        "icon": "",
+        "noCache": false,
+        "titleKey": "",
+        "link": "",
+        "isNew": 0,
+        "iconColor": "#ff7d00",
+        "permi": null
+      },
+      "children": [
+        {
+          "alwaysShow": false,
+          "hidden": false,
+          "name": null,
+          "path": "/pages/roombook/roombook",
+          "redirect": null,
+          "meta": {
+            "title": "手术室耗材预约",
+            "icon": "scan",
+            "noCache": false,
+            "titleKey": "",
+            "link": "",
+            "isNew": 0,
+            "iconColor": null,
+            "permi": null
+          },
+          "component": null
+        },
+        {
+          "alwaysShow": false,
+          "hidden": false,
+          "name": null,
+          "path": "/pages/schedulebook/schedulebook",
+          "redirect": null,
+          "meta": {
+            "title": "手术排期",
+            "icon": "scan",
+            "noCache": false,
+            "titleKey": "",
+            "link": "",
+            "isNew": 0,
+            "iconColor": null,
+            "permi": null
+          },
+          "component": null
+        }
+      ],
+      "component": null
+    }
+  ]
+}
