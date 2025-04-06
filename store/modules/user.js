@@ -46,6 +46,7 @@ const useUserStore = defineStore('user', {
         // IV: "2019062500000000"
       },
       loginInfo: [],
+      currentUserLoginInfo:{}
     }
   },
   getters: {
@@ -60,6 +61,9 @@ const useUserStore = defineStore('user', {
     }
   },
   actions: {
+    setCurrentUserLoginInfo(val) {
+      this.currentUserLoginInfo = val
+    },
     setLoginInfo(val) {
       this.loginInfo = val;
     },

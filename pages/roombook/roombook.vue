@@ -7,7 +7,7 @@
           <view class="u-page__tag-item">
             <up-row customStyle="margin-bottom: 20px">
               <up-col span="10">
-                <up-search v-model="keyword" :show-action="false" @search='handleSearch'></up-search>
+                <up-search v-model="keyword" placeholder="请输入单号" :show-action="false" @search='handleSearch'></up-search>
               </up-col>
               <up-col span="2">
                 <up-button type="primary" @click='handleAddItem' shape="circle" text="添加"></up-button>
@@ -32,6 +32,7 @@
 </template>
 
 <script setup>
+  import useUserStore from '@/store/modules/user';
   import {
     reactive,
     ref
@@ -45,7 +46,6 @@
   } from '@dcloudio/uni-app';
   // 响应式数据
   const keyword = ref('');
-
   const handleAddItem = () => {
     uni.navigateTo({
       url: "/pages/addbook/addbook"
@@ -60,7 +60,7 @@
     listRoombookList({
       Token: sessionStorage.getItem("Token"),
       NAXT_DAT_PLAN_NUM: keyword.value,
-      CREATE_MAN: "",
+      CREATE_MAN: useUserStore().currentUserLoginInfo.Nickname,
       page: 1,
       size: 20
     }).then(res => {
@@ -71,7 +71,6 @@
       }
       if (res.result && res.result.length > 0) { // 确保 res.result 存在且不为空
         // 1. 对 res.result 数组进行排序 (倒序，CREATE_TIME 晚的排在前面)
-
         res.result.sort((a, b) => {
           // 将 CREATE_TIME 转换为 Date 对象进行比较，确保正确排序
           const dateA = new Date(a.CREATE_TIME);
@@ -99,7 +98,7 @@
     listRoombookList({
       Token: sessionStorage.getItem("Token"),
       NAXT_DAT_PLAN_NUM: keyword.value,
-      CREATE_MAN: "",
+      CREATE_MAN: useUserStore().currentUserLoginInfo.Nickname,
       page: 1,
       size: 20
     }).then(res => {

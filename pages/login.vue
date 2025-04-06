@@ -111,6 +111,7 @@
     useUserStore().login(loginForm.value).then((res) => {
       if(res.code == 200){
         sessionStorage.setItem("DEPT_TWO_CODE",res.result.userDept[0].Dept_Two_Code)
+        useUserStore().setCurrentUserLoginInfo(res.result)
         uni.switchTab({
           url: `/pages/work/index`
         });
