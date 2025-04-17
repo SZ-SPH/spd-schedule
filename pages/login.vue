@@ -46,6 +46,7 @@
   import configService from '@/api/config.service.js'
   import useUserStore from '@/store/modules/user';
 
+  // #ifdef APP-PLUS
   import checkUpdate from '@/uni_modules/uni-upgrade-center-app/utils/check-update'
 
   checkUpdate().then(res=>{
@@ -53,6 +54,8 @@
   }).catch(err=>{
     console.log(err)
   })
+  // #endif
+
 
 
 
