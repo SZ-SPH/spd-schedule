@@ -171,11 +171,11 @@
   const initTemplate = () => {
     //单条目初始化
     SerachAuthVar({
-      Token: sessionStorage.getItem("Token"),
+      Token: uni.getStorageSync("Token"),
       page: 1,
       size: 99999,
       // DeptCode: '2140',
-      DeptCode: sessionStorage.getItem("DEPT_TWO_CODE"), //记得放开
+      DeptCode: uni.getStorageSync("DEPT_TWO_CODE"), //记得放开
       SerachName: "",
     }).then((res) => {
       const formattedData = res.result.map((item) => {
@@ -188,7 +188,7 @@
     });
 
     listRoomBookTemplate({
-      Token: sessionStorage.getItem("Token"),
+      Token: uni.getStorageSync("Token"),
       TEMPLATE_NAME: "",
       CREATOR: "",
       page: 1,
@@ -207,7 +207,7 @@
   const storages = reactive([]);
   const initStorage = () => {
     listStorage({
-      Token: sessionStorage.getItem("Token"),
+      Token: uni.getStorageSync("Token"),
     }).then((res) => {
       const formattedData = res.result.map((item) => {
         return {
@@ -252,7 +252,7 @@
     );
     generateNaxtDayOrder({
         ID: mainId.value,
-        Token: sessionStorage.getItem("Token"),
+        Token: uni.getStorageSync("Token"),
         SURGICAL_ROOM: baseFormData.surgery,
         SURGICAL_PLACE: baseFormData.location,
         REMARK: baseFormData.remark,
@@ -303,7 +303,7 @@
         MAIN_ID: data,
         page: 1,
         size: 99999,
-        Token: sessionStorage.getItem("Token"),
+        Token: uni.getStorageSync("Token"),
       })
       .then((res) => {
         listData.splice(0, listData.length, ...res.result);

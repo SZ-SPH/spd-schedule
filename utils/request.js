@@ -22,19 +22,25 @@ const request = config => {
   const isToken = (config.headers || {}).isToken === false
   const checkLogin = (config.headers || {}).checkLogin === true
   config.header = config.header || {}
-  if (getToken() && !isToken) {
-    config.header['Authorization'] = 'Bearer ' + getToken()
-    config.header['userid'] = useUserStore().userId
-  }
+  // if (getToken() && !isToken) {
+    // config.header['Authorization'] = 'Bearer ' + getToken()
+    // config.header['userid'] = useUserStore().userId
+  // }
 
   // 移除underfunded、null参数
-  if (config.method.toLowerCase() === 'get') {
+  if (config.method?.toLowerCase() === 'get') {
     config.data = delEmptyQueryNodes(config.data)
   }
   // 判断是否需要登录，如果需要登录就不继续往下走了
   if (checkLogin) {
     useUserStore().checkLogin()
   }
+
+  // 后台一般是使用formdata格式，如需要json格式，手动修改
+  // if(!config.header["Content-Type"]){
+  //   config.header["Content-Type"] = "application/x-www-form-urlencoded"
+  // }
+
 
   return new Promise((resolve, reject) => {
     uni.request({
@@ -82,6 +88,7 @@ const request = config => {
         resolve(res.data)
       })
       .catch(error => {
+        console.log(config)
         console.error(error)
         let {
           errMsg

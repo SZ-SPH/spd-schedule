@@ -283,7 +283,7 @@
     );
     generateNaxtDayOrder({
         ID: mainId.value,
-        Token: sessionStorage.getItem("Token"),
+        Token: uni.getStorageSync("Token"),
         SURGICAL_ROOM: baseFormData.surgery,
         SURGICAL_PLACE: baseFormData.location,
         REMARK: baseFormData.remark,
@@ -317,7 +317,7 @@
   const storages = reactive([]);
   const initStorage = () => {
     listStorage({
-      Token: sessionStorage.getItem("Token"),
+      Token: uni.getStorageSync("Token"),
     }).then((res) => {
       const formattedData = res.result.map((item) => {
         return {
@@ -326,7 +326,9 @@
         };
       });
       storages.splice(0, storages.length, ...formattedData);
-    });
+    }).catch(err=>{
+      console.log(err)
+    })
   };
 
   const candidates = reactive([]);
@@ -354,10 +356,10 @@
   const initTemplate = () => {
     //单条目初始化
     SerachAuthVar({
-      Token: sessionStorage.getItem("Token"),
+      Token: uni.getStorageSync("Token"),
       page: 1,
       size: 99999,
-      DeptCode: sessionStorage.getItem("DEPT_TWO_CODE"), //记得放开
+      DeptCode: uni.getStorageSync("DEPT_TWO_CODE"), //记得放开
       // DeptCode: "2140",
       SerachName: "",
     }).then((res) => {
@@ -372,7 +374,7 @@
 
     // 模板初始化
     listRoomBookTemplate({
-      Token: sessionStorage.getItem("Token"),
+      Token: uni.getStorageSync("Token"),
       TEMPLATE_NAME: "",
       CREATOR: "",
       page: 1,
@@ -402,7 +404,7 @@
         MAIN_ID: data,
         page: 1,
         size: 99999,
-        Token: sessionStorage.getItem("Token"),
+        Token: uni.getStorageSync("Token"),
       })
       .then((res) => {
         listData.splice(0, listData.length, ...res.result);

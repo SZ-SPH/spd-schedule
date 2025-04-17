@@ -6,11 +6,18 @@ import configService from '@/api/config.service'
 
 export function listSchedulebook(data) {
   return new Promise((resolve, reject) => {
-    fetch(`${configService.apiUrl}/DeptApplyPlan/GetSurgicalScheduling`,{
-      method:"POST",
-      body: formdataify(data)
+    request({
+      url:`/DeptApplyPlan/GetSurgicalScheduling`,
+      method:`POST`,
+      data:data,
+      header:{
+        "Content-Type" : "application/x-www-form-urlencoded"
+      }
     }).then(res => {
-      resolve(res.json())
+      resolve(res)
+    }).catch(err=>{
+      reject(err)
     })
+
   })
 }

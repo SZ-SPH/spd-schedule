@@ -58,7 +58,7 @@
     })
     indexList.length = 0;
     listRoombookList({
-      Token: sessionStorage.getItem("Token"),
+      Token: uni.getStorageSync("Token"),
       NAXT_DAT_PLAN_NUM: keyword.value,
       CREATE_MAN: useUserStore().currentUserLoginInfo.Nickname,
       page: 1,
@@ -96,7 +96,7 @@
     })
     indexList.length = 0;
     listRoombookList({
-      Token: sessionStorage.getItem("Token"),
+      Token: uni.getStorageSync("Token"),
       NAXT_DAT_PLAN_NUM: keyword.value,
       CREATE_MAN: useUserStore().currentUserLoginInfo.Nickname,
       page: 1,

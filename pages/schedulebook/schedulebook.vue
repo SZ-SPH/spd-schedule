@@ -57,7 +57,7 @@
       MAIN_ID: "",
       page: 1,
       size: 10,
-      Token: sessionStorage.getItem("Token")
+      Token: uni.getStorageSync("Token")
     }).then(res => {
       if (res.code != 200) {
         return uni.showToast({
