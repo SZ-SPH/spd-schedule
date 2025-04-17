@@ -40,7 +40,8 @@ const useUserStore = defineStore("user", {
   },
   getters: {
     userId() {
-      return this.userInfo.userId;
+      console.log(this.userInfo)
+      return this.userInfo.ID;
     },
     avatar() {
       return this.userInfo.avatar;
@@ -55,6 +56,9 @@ const useUserStore = defineStore("user", {
     },
     setLoginInfo(val) {
       this.loginInfo = val;
+    },
+    setUserInfo(val) {
+      this.userInfo = val;
     },
     saveName(val) {
       this.userInfo.name = val;
@@ -89,11 +93,11 @@ const useUserStore = defineStore("user", {
                 if (tokenRes.code == 200) {
                   resolve(res);
                   setToken(tokenRes.token);
-                  sessionStorage.setItem("Token", tokenRes.token);
+                  uni.setStorageSync("Token", tokenRes.token);
                 }
               });
             } else {
-              sessionStorage.clear();
+              uni.clearStorageSync();
               reject(res.data.msg);
             }
           })

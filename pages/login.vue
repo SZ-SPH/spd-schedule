@@ -45,6 +45,17 @@
   import config from '@/config.js'
   import configService from '@/api/config.service.js'
   import useUserStore from '@/store/modules/user';
+
+  import checkUpdate from '@/uni_modules/uni-upgrade-center-app/utils/check-update'
+
+  checkUpdate().then(res=>{
+    console.log(res)
+  }).catch(err=>{
+    console.log(err)
+  })
+
+
+
   const codeUrl = ref("");
   const captchaEnabled = ref(false);
   const globalConfig = ref(config);
@@ -110,7 +121,7 @@
     /* this.$modal.closeLoading() */
     useUserStore().login(loginForm.value).then((res) => {
       if(res.code == 200){
-        sessionStorage.setItem("DEPT_TWO_CODE",res.result.userDept[0].Dept_Two_Code)
+        uni.setStorageSync("DEPT_TWO_CODE",res.result.userDept[0]?.Dept_Two_Code)
         useUserStore().setCurrentUserLoginInfo(res.result)
         uni.switchTab({
           url: `/pages/work/index`

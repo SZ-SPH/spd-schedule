@@ -124,7 +124,7 @@ const handleSubmit = () => {
     title: "正在处理中",
   });
   submitNaxtDayOrder({
-    Token: sessionStorage.getItem("Token"),
+    Token: uni.getStorageSync("Token"),
     ID: mainId.value + ",",
     STATE: "1",
   })
@@ -147,7 +147,7 @@ const handleDelete = () => {
     title: "正在处理中",
   });
   deleteNaxtDayOrder({
-    Token: sessionStorage.getItem("Token"),
+    Token: uni.getStorageSync("Token"),
     id: mainId.value,
   })
     .then((res) => {
@@ -170,7 +170,7 @@ const initApplication = () => {
     title: "正在加载中",
   });
   listRoombookList({
-    Token: sessionStorage.getItem("Token"),
+    Token: uni.getStorageSync("Token"),
     NAXT_DAT_PLAN_NUM: planNum.value,
     CREATE_MAN: "",
     page: 1,
@@ -196,7 +196,7 @@ const initTemplate = (data) => {
     MAIN_ID: mainId.value,
     page: 1,
     size: 99999,
-    Token: sessionStorage.getItem("Token"),
+    Token: uni.getStorageSync("Token"),
   })
     .then((res) => {
       listData.splice(0, listData.length, ...res.result);
