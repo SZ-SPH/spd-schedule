@@ -38,6 +38,8 @@ export default function () : Promise<UniUpgradeCenterResult> {
 		// #ifndef UNI-APP-X
 		if (typeof appId === 'string' && typeof appVersion === 'string' && appId.length > 0 && appVersion.length > 0) {
 			plus.runtime.getProperty(appId, function (widgetInfo) {
+        console.log(widgetInfo)
+
 				if (widgetInfo.version) {
 					let data = {
 						action: 'checkVersion',
@@ -49,6 +51,7 @@ export default function () : Promise<UniUpgradeCenterResult> {
 						name: 'uni-upgrade-center',
 						data,
 						success: (e) => {
+              console.log(e)
 							resolve(e.result as UniUpgradeCenterResult)
 						},
 						fail: (error) => {

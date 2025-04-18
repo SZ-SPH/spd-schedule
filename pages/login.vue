@@ -29,6 +29,7 @@
   </view>
 </template>
 
+
 <script setup>
   import {
     getCodeImg
@@ -45,17 +46,14 @@
   import config from '@/config.js'
   import configService from '@/api/config.service.js'
   import useUserStore from '@/store/modules/user';
+  import { onMounted } from 'vue'
 
   // #ifdef APP-PLUS
   import checkUpdate from '@/uni_modules/uni-upgrade-center-app/utils/check-update'
-
-  checkUpdate().then(res=>{
-    console.log(res)
-  }).catch(err=>{
-    console.log(err)
+  onMounted(()=>{
+    checkUpdate()
   })
   // #endif
-
 
 
 
