@@ -42,7 +42,6 @@
   const {
     proxy
   } = getCurrentInstance()
-  import user from '@/store/modules/user'
   import config from '@/config.js'
   import configService from '@/api/config.service.js'
   import useUserStore from '@/store/modules/user';

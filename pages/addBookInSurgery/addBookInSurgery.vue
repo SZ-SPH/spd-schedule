@@ -4,12 +4,6 @@
       <view class="example">
         <!-- 基础用法，不包含校验规则 -->
         <uni-forms ref="form" :modelValue="baseFormData">
-          <!-- <uni-forms-item label="申请人" required>
-            <uni-easyinput disabled v-model="baseFormData.applyMan" placeholder="请输入申请人" />
-          </uni-forms-item> -->
-          <!--          <uni-forms-item label="归还人">
-            <uni-easyinput v-model="baseFormData.returnMan" placeholder="请输入归还人" />
-          </uni-forms-item> -->
           <uni-forms-item label="术间" required>
             <uni-data-select v-model="baseFormData.surgery" :localdata="surgeryRange"
               placeholder="请选择术间"></uni-data-select>
@@ -44,17 +38,6 @@
             <uni-notice-bar text="请在右边输入框添加数量，下面输入框输入备注！" />
           </uni-section>
         </uni-forms>
-
-        <!-- <view class="list-item" v-for="(item, index) in listData" :key="index">
-          <view class="left-content">
-            <text class='title'>{{ item.VARIETIE_CODE_NEW }}</text>
-            <text class='title'>{{ item.VARIETIE_NAME }}</text>
-            <text class='description'>{{ item.SPECIFICATION_OR_TYPE }}</text>
-          </view>
-          <view class="right-content">
-            <uni-easyinput v-model="item.APPLY_QTY" placeholder="请输入数量"></uni-easyinput>
-          </view>
-        </view> -->
 
         <view class="list-item" v-for="(item, index) in listData" :key="index">
           <!-- Upper section - stays the same -->
@@ -286,6 +269,7 @@
         REMARK: baseFormData.remark,
         data: listDataFilter,
         STATE: data,
+        type:"1"
       })
       .then((res) => {
         uni.showToast({

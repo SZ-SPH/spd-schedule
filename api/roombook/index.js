@@ -1,8 +1,4 @@
 import request from '@/utils/request'
-import {
-  formdataify
-} from '@/plugins/format'
-import configService from '@/api/config.service'
 
 // 查询列表
 export function listRoombookList(data) {
@@ -46,7 +42,6 @@ export function listRoomBookTemplate(data) {
 //查询模板下的条目
 export function listRoomBookTemplateDetail(data) {
   return new Promise((resolve, reject) => {
-
     request({
       url:`/DeptApplyPlan/GetNaxtDayApplyPlanDelTemp`,
       method:`POST`,

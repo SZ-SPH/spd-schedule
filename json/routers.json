@@ -54,6 +54,24 @@
             "permi": null
           },
           "component": null
+        },
+        {
+          "alwaysShow": false,
+          "hidden": false,
+          "name": null,
+          "path": "/pages/addBookInSurgery/addBookInSurgery",
+          "redirect": null,
+          "meta": {
+            "title": "术中预约",
+            "icon": "scan",
+            "noCache": false,
+            "titleKey": "",
+            "link": "",
+            "isNew": 0,
+            "iconColor": null,
+            "permi": null
+          },
+          "component": null
         }
       ],
       "component": null

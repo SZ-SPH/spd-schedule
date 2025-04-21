@@ -326,6 +326,13 @@
       {
         "navigationBarTitleText" : "手术排期创建"
       }
+    },
+    {
+      "path" : "pages/addBookInSurgery/addBookInSurgery",
+      "style" :
+      {
+        "navigationBarTitleText" : "术中预约"
+      }
     }
   ],
   "tabBar": {
