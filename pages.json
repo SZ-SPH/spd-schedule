@@ -15,6 +15,12 @@
       }
     },
     {
+      "path": "uni_modules/uni-upgrade-center-app/pages/upgrade-popup",
+      "style": {
+        "navigationBarTitleText": "版本更新" // 可以自定义标题
+      }
+    },
+    {
       "path": "pages/work/index",
       "style": {
         "navigationBarTitleText": "工作台"
