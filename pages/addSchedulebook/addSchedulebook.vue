@@ -69,17 +69,6 @@
           </uni-section>
         </uni-forms>
 
-        <!-- <view class="list-item" v-for="(item, index) in listData" :key="index">
-          <view class="left-content">
-            <text class='title'>{{ item.VARIETIE_CODE_NEW }}</text>
-            <text class='title'>{{ item.VARIETIE_NAME }}</text>
-            <text class='description'>{{ item.SPECIFICATION_OR_TYPE }}</text>
-          </view>
-          <view class="right-content">
-            <uni-easyinput v-model="item.APPLY_QTY" placeholder="请输入数量"></uni-easyinput>
-          </view>
-        </view> -->
-
         <view class="list-item" v-for="(item, index) in listData" :key="index">
           <!-- Upper section - stays the same -->
           <view class="upper-section">
@@ -105,7 +94,7 @@
         </view>
 
         <view class="button-group">
-          <button type="primary" size="mini" @click="handleSubmit(1)">
+          <button :disabled="isSubmitEnable" type="primary" size="mini" @click="handleSubmit(1)">
             提交
           </button>
         </view>
@@ -137,6 +126,8 @@ const baseFormData = reactive({
   hospitalNum: "",
   customItem: "",
 });
+
+const isSubmitEnable = ref(false)
 
 const handleDeleteItem = (data) => {
   uni.showModal({
@@ -265,6 +256,8 @@ const handleSubmit = (data) => {
       icon: "error",
     });
   }
+
+  isSubmitEnable.value = true;
 
   const listDataFilter = JSON.stringify(
     listData.map((item) => {

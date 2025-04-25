@@ -78,7 +78,7 @@
 
         <view class="button-group">
 
-          <button type="primary" size="mini" @click="handleSubmit(1)">
+          <button :disabled="isSubmitEnable" type="primary" size="mini" @click="handleSubmit(1)">
             提交
           </button>
 
@@ -109,6 +109,8 @@
   } from "@dcloudio/uni-app";
 
   onLoad(() => {});
+
+  const isSubmitEnable = ref(false)
 
   // 术间list
   const surgeryRange = reactive([{
@@ -267,6 +269,7 @@
         icon: "error",
       });
     }
+    isSubmitEnable.value = true;
 
     const listDataFilter = JSON.stringify(
       listData.map((item) => {
