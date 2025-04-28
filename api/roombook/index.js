@@ -167,6 +167,42 @@ export function submitNaxtDayOrder(data) {
   })
 }
 
+//获取类别
+export function getNaxtPlanType(data) {
+  return new Promise((resolve, reject) => {
+    request({
+      url:`/DeptApplyPlan/getNaxtDatApplyPlanType`,
+      method:`POST`,
+      data:data,
+      header:{
+        "Content-Type" : "application/x-www-form-urlencoded"
+      }
+    }).then(res => {
+      resolve(res)
+    }).catch(err=>{
+      reject(err)
+    })
+  })
+}
+
+//根据类别获取类别对应的列表
+export function getNaxtDatApplyPlanListByType(data) {
+  return new Promise((resolve, reject) => {
+    request({
+      url:`/DeptApplyPlan/getNaxtDatApplyPlanListByType`,
+      method:`POST`,
+      data:data,
+      header:{
+        "Content-Type" : "application/x-www-form-urlencoded"
+      }
+    }).then(res => {
+      resolve(res)
+    }).catch(err=>{
+      reject(err)
+    })
+  })
+}
+
 //获取院区
 export function listStorage(data) {
   return new Promise((resolve, reject) => {

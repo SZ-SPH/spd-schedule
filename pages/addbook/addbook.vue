@@ -25,9 +25,22 @@
             <uni-easyinput v-model="baseFormData.remark" placeholder="请输入备注" />
           </uni-forms-item>
 
-          <uni-forms-item label="高值耗材模板">
+          <!--          <uni-forms-item label="高值耗材模板">
             <uni-easyinput v-model="searchQuery" placeholder="请输入搜索内容" @input="onSearch" style="margin-bottom: 10px" />
-            <!-- 使用过滤后的数据 -->
+            <uni-data-select v-model="baseFormData.template" :localdata="filteredCandidates" placeholder="请选择模板"
+              @change="handleTemplateChange" />
+          </uni-forms-item> -->
+
+          <uni-forms-item label="高值耗材模板" class="split-input-row">
+            <!-- 左侧搜索框 -->
+            <view class="input-container">
+              <uni-easyinput v-model="searchQuery" placeholder="请输入搜索内容" @input="onSearch" />
+
+              <uni-data-select v-model="baseFormData.type" :localdata="typeRange" @change="handleTypeChange"
+                :clear="true" placeholder="请选择类别"></uni-data-select>
+            </view>
+            <!-- </uni-forms-item>
+          <uni-forms-item label="" labelWidth="0"> -->
             <uni-data-select v-model="baseFormData.template" :localdata="filteredCandidates" placeholder="请选择模板"
               @change="handleTemplateChange" />
           </uni-forms-item>
@@ -45,19 +58,7 @@
           </uni-section>
         </uni-forms>
 
-        <!-- <view class="list-item" v-for="(item, index) in listData" :key="index">
-          <view class="left-content">
-            <text class='title'>{{ item.VARIETIE_CODE_NEW }}</text>
-            <text class='title'>{{ item.VARIETIE_NAME }}</text>
-            <text class='description'>{{ item.SPECIFICATION_OR_TYPE }}</text>
-          </view>
-          <view class="right-content">
-            <uni-easyinput v-model="item.APPLY_QTY" placeholder="请输入数量"></uni-easyinput>
-          </view>
-        </view> -->
-
         <view class="list-item" v-for="(item, index) in listData" :key="index">
-          <!-- Upper section - stays the same -->
           <view class="upper-section">
             <view class="left-content">
               <text class="title">{{ item.VARIETIE_CODE_NEW }}</text>
@@ -70,7 +71,6 @@
             </view>
           </view>
 
-          <!-- New lower section with remarks input -->
           <view class="lower-section">
             <uni-easyinput v-model="item.REMARKS" placeholder="请输入备注" />
           </view>
@@ -101,6 +101,8 @@
     generateNaxtDayOrder,
     listStorage,
     SerachAuthVar,
+    getNaxtPlanType,
+    getNaxtDatApplyPlanListByType
   } from "@/api/roombook/index";
 
   import {
@@ -111,6 +113,40 @@
   onLoad(() => {});
 
   const isSubmitEnable = ref(false)
+
+  const typeRange = reactive([]);
+
+  const initTypeList = () => {
+    getNaxtPlanType({
+      Token: uni.getStorageSync("Token")
+    }).then((res) => {
+      if (res?.code == 200) {
+        const dataList = res?.data?.map(item => {
+          return {
+            value: item,
+            text: item
+          }
+        });
+        typeRange.splice(0, typeRange.length, ...dataList);
+      }
+    })
+  }
+
+  //处理类型
+  const handleTypeChange = (data) => {
+    getNaxtDatApplyPlanListByType({
+      Token: uni.getStorageSync("Token"),
+      TYPE: data,
+    }).then((res) => {
+      const formattedData = res?.data?.map((item) => {
+        return {
+          value: item.ID,
+          text: item.TEMPLATE_NAME,
+        };
+      });
+      candidates.splice(0, candidates.length, ...formattedData);
+    })
+  }
 
   // 术间list
   const surgeryRange = reactive([{
@@ -232,7 +268,6 @@
 
   // 输入框输入事件，更新搜索关键词
   const onCustomSearch = (e) => {
-    // 这里 e.detail.value 为 uni-easyinput 返回的输入内容
     customSearchQuery.value = e.detail.value;
   };
   //
@@ -312,6 +347,7 @@
     remark: "",
     template: "",
     customItem: "",
+    type: "",
   });
 
   const storages = reactive([]);
@@ -326,7 +362,7 @@
         };
       });
       storages.splice(0, storages.length, ...formattedData);
-    }).catch(err=>{
+    }).catch(err => {
       console.log(err)
     })
   };
@@ -417,6 +453,7 @@
   onShow(() => {
     initTemplate();
     initStorage();
+    initTypeList();
   });
 </script>
 
@@ -481,5 +518,22 @@
     padding: 5px 0;
     font-size: 14px;
     cursor: pointer;
+  }
+
+  .split-input-row {
+    position: relative;
+  }
+
+  .split-input-row .uni-forms-item__content {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .input-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    width: 100%;
   }
 </style>
