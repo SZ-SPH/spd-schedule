@@ -46,6 +46,14 @@
               <text class="title">{{ item.VARIETIE_CODE_NEW }}</text>
               <text class="title">{{ item.VARIETIE_NAME }}</text>
               <text class="description">{{ item.SPECIFICATION_OR_TYPE }}</text>
+
+              <uni-data-select v-model="item.VARIETIE_SKU" :localdata="(item.SKU_NAMES||'').split(',')
+                  .map(s => s.trim())
+                  .filter(s => s)
+                  .map(txt => ({ text: txt, value: txt }))" placeholder="请选择 SKU"
+                style="margin-top: 8px; width: 80%;" />
+
+
             </view>
             <view class="right-content">
               <uni-easyinput v-model="item.APPLY_QTY" placeholder="请输入数量"></uni-easyinput>
@@ -273,7 +281,7 @@
         REMARK: baseFormData.remark,
         data: listDataFilter,
         STATE: data,
-        type:"1"
+        type: "1"
       })
       .then((res) => {
         uni.showToast({
@@ -311,7 +319,7 @@
         };
       });
       storages.splice(0, storages.length, ...formattedData);
-    }).catch(err=>{
+    }).catch(err => {
       console.log(err)
     })
   };

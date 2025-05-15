@@ -21,10 +21,11 @@
           <uni-forms-item label="高值耗材模板" class="split-input-row">
             <!-- 左侧搜索框 -->
             <view class="input-container">
-              <uni-easyinput v-model="searchQuery" placeholder="请输入搜索内容" @input="onSearch" />
 
               <uni-data-select v-model="baseFormData.type" :localdata="typeRange" @change="handleTypeChange"
                 :clear="true" placeholder="请选择类别"></uni-data-select>
+
+              <uni-easyinput v-model="searchQuery" placeholder="请输入搜索内容" @input="onSearch" />
             </view>
             <!-- </uni-forms-item>
           <uni-forms-item label="" labelWidth="0"> -->
@@ -52,6 +53,13 @@
               <text class="title">{{ item.VARIETIE_CODE_NEW }}</text>
               <text class="title">{{ item.VARIETIE_NAME }}</text>
               <text class="description">{{ item.SPECIFICATION_OR_TYPE }}</text>
+
+              <uni-data-select v-model="item.VARIETIE_SKU" :localdata="(item.SKU_NAMES||'').split(',')
+                  .map(s => s.trim())
+                  .filter(s => s)
+                  .map(txt => ({ text: txt, value: txt }))" placeholder="请选择 SKU"
+                style="margin-top: 8px; width: 80%;" />
+
             </view>
             <view class="right-content">
               <uni-easyinput v-model="item.APPLY_QTY" placeholder="请输入数量"></uni-easyinput>
@@ -284,6 +292,7 @@
           QTY: item.APPLY_QTY,
           VARID: item.VarID,
           REMARK: item.REMARKS,
+          VARIETIE_SKU:item.VARIETIE_SKU,
         };
       })
     );

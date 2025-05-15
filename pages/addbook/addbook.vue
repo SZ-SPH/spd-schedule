@@ -34,10 +34,11 @@
           <uni-forms-item label="高值耗材模板" class="split-input-row">
             <!-- 左侧搜索框 -->
             <view class="input-container">
-              <uni-easyinput v-model="searchQuery" placeholder="请输入搜索内容" @input="onSearch" />
 
               <uni-data-select v-model="baseFormData.type" :localdata="typeRange" @change="handleTypeChange"
                 :clear="true" placeholder="请选择类别"></uni-data-select>
+
+              <uni-easyinput v-model="searchQuery" placeholder="请输入搜索内容" @input="onSearch" />
             </view>
             <!-- </uni-forms-item>
           <uni-forms-item label="" labelWidth="0"> -->
@@ -47,10 +48,10 @@
 
           <uni-forms-item label="自定义新增条目">
             <uni-easyinput v-model="customSearchQuery" placeholder="请输入物料名/物料编码/通用名" @input="onCustomSearch"
-              style="margin-bottom: 10px" />
+              style="margin-bottom: 10px;" />
             <!-- 使用过滤后的数据 -->
             <uni-data-select v-model="baseFormData.customItem" :localdata="customFilteredCandidates" placeholder="请选择条目"
-              @change="handleCustomSeachChange" />
+              @change="handleCustomSeachChange" style="" />
           </uni-forms-item>
 
           <uni-section title="提示" type="line">
@@ -61,13 +62,24 @@
         <view class="list-item" v-for="(item, index) in listData" :key="index">
           <view class="upper-section">
             <view class="left-content">
+              <!-- 原有三个字段 -->
               <text class="title">{{ item.VARIETIE_CODE_NEW }}</text>
               <text class="title">{{ item.VARIETIE_NAME }}</text>
               <text class="description">{{ item.SPECIFICATION_OR_TYPE }}</text>
+
+              <!-- 新增的 SKU 下拉 -->
+              <uni-data-select v-model="item.VARIETIE_SKU" :localdata="(item.SKU_NAMES||'').split(',')
+                  .map(s => s.trim())
+                  .filter(s => s)
+                  .map(txt => ({ text: txt, value: txt }))" placeholder="请选择 SKU"
+                style="margin-top: 8px; width: 80%;" />
             </view>
+
             <view class="right-content">
-              <uni-easyinput v-model="item.APPLY_QTY" placeholder="请输入数量"></uni-easyinput>
-              <button class="delete-btn" @click="handleDeleteItem(index)">删除</button>
+              <uni-easyinput v-model="item.APPLY_QTY" placeholder="请输入数量" />
+              <button class="delete-btn" @click="handleDeleteItem(index)">
+                删除
+              </button>
             </view>
           </view>
 
@@ -76,9 +88,10 @@
           </view>
         </view>
 
+
         <view class="button-group">
 
-          <button :disabled="isSubmitEnable" type="primary" size="mini" @click="handleSubmit(1)">
+          <button :disabled="isSubmitEnable" type="primary" @click="handleSubmit(1)">
             提交
           </button>
 
@@ -312,6 +325,7 @@
           ID: item.ID,
           QTY: item.APPLY_QTY,
           VARID: item.VarID,
+          VARIETIE_SKU:item.VARIETIE_SKU,
           REMARK: item.REMARKS,
         };
       })
